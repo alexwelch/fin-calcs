@@ -3,16 +3,45 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>NPV calc</title>
+    <style type="text/css" media="screen">
+      label {
+        display: block;
+        margin: 10px 0;
+      }
+    </style>
   </head>
   <body>
-    <form accept-charset="utf-8">
-      <dl>
-        <dt></dt>
-      </dl>
+    <p>Assumes that expenses increase at a rate of 1.5% / period. Production decreases by .05% / period. Default discount rate of 7%.</p>
+    <form accept-charset="utf-8" onsubmit="return calculateNpv();" action="#">
+      <label>
+        Energy Amount in KWH:
+        <input type="number" name="energy" id="energy" />
+      </label>
+
+      <label>
+        PPA Price:
+        <input type="number" name="price" id="price" step="0.01" />
+      </label>
+
+      <label>
+        Periodic Expenses: (should be a negative number)
+        <input type="number" name="expense" id="expense" />
+      </label>
+
+      <label>
+        Term:
+        <input type="number" name="term" id="term" />
+      </label>
+
+      <label>
+        Periodic Price Increase: (enter as a decimal)
+        <input type="number" name="price_increase" id="price_increase" />
+      </label>
 
 
-      <input type="submit" value="Continue &rarr;">
+      <input type="submit" value="Calculate NPV &rarr;">
     </form>
+    <div id="result">result...</div>
   <script src="npv.js" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>

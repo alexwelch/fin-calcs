@@ -1,12 +1,12 @@
 (function(){
-  window.NPV = function(energy, unitPrice, periodicExpenses, term, annualPriceIncrease){
+  window.NPV = function(energy, unitPrice, periodicExpenses, term, periodicPriceIncrease){
     var base = this;
     base.energy = energy;
     base.unitPrice = unitPrice;
     base.periodicExpenses = periodicExpenses;
     base.term = term;
-    base.annualPriceIncrease = 1 + annualPriceIncrease,
-    base.annualProductionIncrease = 1 - 0.05,
+    base.periodicPriceIncrease = 1 + periodicPriceIncrease,
+    base.periodicProductionIncrease = 1 - 0.05,
     base.periodicExpenseIncrease = 1.015,
     base.discountRate = 1.07;
 
@@ -48,8 +48,8 @@
       base._forTerm(function() {
         revenue = energy * unitPrice;
         revenues.push(revenue);
-        energy = energy * base.annualProductionIncrease,
-        unitPrice = unitPrice * base.annualPriceIncrease;
+        energy = energy * base.periodicProductionIncrease,
+        unitPrice = unitPrice * base.periodicPriceIncrease;
       });
 
       return revenues;
@@ -77,5 +77,20 @@
       return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
     }
   };
+
+  window.calculateNpv = function() {
+    var energy = parseFloat(document.getElementById('energy').value),
+    price = parseFloat(document.getElementById('price').value),
+    expense = parseFloat(document.getElementById('expense').value),
+    term = parseFloat(document.getElementById('term').value),
+    priceIncrease = parseFloat(document.getElementById('price_increase').value),
+    resultContainer = document.getElementById('result');
+
+    // npv = new window.NPV(100, .10, -1, 3, 1);
+    npv = new window.NPV(energy, price, expense, term, priceIncrease).calculate();
+    resultContainer.innerHTML = npv;
+    return false;
+  };
+
 })();
 
